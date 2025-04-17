@@ -111,7 +111,7 @@ canvas.emscripten { border: 0px none; background-color: black; }
     <span id='controls'>
       <span><input type="checkbox" id="resize">Resize canvas</span>
       <span><input type="checkbox" id="pointerLock" checked>Lock/hide mouse pointer &nbsp;&nbsp;&nbsp;</span>
-      <span><input type="button" value="Fullscreen" onclick="Module.requestFullscreen(document.getElementById('pointerLock').checked, 
+      <span><input type="button" id="fullscreen_btn" value="Fullscreen" onclick="Module.requestFullscreen(document.getElementById('pointerLock').checked, 
                                                                                 document.getElementById('resize').checked)">
       </span>
     </span>
@@ -197,6 +197,25 @@ canvas.emscripten { border: 0px none; background-color: black; }
       };
     </script>
     <script async type="text/javascript" src="DynamicSimulator.js"></script>
-  
+	<script type="text/javascript">
+	const canvas = document.getElementById("canvas");
+	const full_screen_btn = document.getElementById("fullscreen_btn");
+	full_screen_btn.style.zIndex = 999;
+	full_screen_btn.style.position = "absolute";
+	full_screen_btn.style.right = "15px";
+	full_screen_btn.style.top = "15px";
+
+	function resizeCanvas() {
+	canvas.style.position = "absolute";
+	canvas.style.top = "0px";
+	canvas.style.left  = "0px";
+	canvas.style.width = window.innerWidth + "px";
+	canvas.style.height = window.innerHeight + "px";
+	}
+
+	window.addEventListener("resize", resizeCanvas);
+
+	resizeCanvas();
+	</script>
 </body>
 </html>
